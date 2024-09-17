@@ -8,7 +8,7 @@ Please follow the general installation instructions of detectron2 as described i
 
 ## Usage
 
-This version of detectron2 contains the new configuration files ([base](https://github.com/chwilms/SOS_detectron2/blob/main/configs/Base-RCNN-FPN_OWIS.yaml) and [R-50 version](https://github.com/chwilms/SOS_detectron2/blob/main/configs/COCO-OpenWorldInstanceSegmentation/mask_rcnn_R_50_FPN_1x.yaml)) for training Mask R-CNN in the class-agnostic open-world instance segmentation setting described in the paper. We provide the base configurations with the full schedule assuming eight GPUs. Change the parameters accordingly for fewer GPUs. Note that in our study we only use 1/4 of the full schedule's iterations and scale the steps accordingly.
+This version of detectron2 contains the new configuration files ([base](https://github.com/chwilms/SOS_detectron2/blob/main/configs/Base-RCNN-FPN_OWIS.yaml) and [ResNet-50 version](https://github.com/chwilms/SOS_detectron2/blob/main/configs/COCO-OpenWorldInstanceSegmentation/mask_rcnn_R_50_FPN_1x.yaml)) for training Mask R-CNN in the class-agnostic open-world instance segmentation setting described in the paper. We provide the base configurations with the full schedule assuming eight GPUs. Change the parameters accordingly for fewer GPUs. Note that in our study we only use 1/4 of the full schedule's iterations and scale the steps accordingly.
 
 As the default dataset for training, we use the COCO training dataset with annotations of the VOC classes merged with pseudo annotations of the best object prior from our paper (*DINO* -> ```instances_train2017_voc_SOS_DINO.json``` -> ```coco_2017_train_voc_SOS_DINO```) as described in the paper (cross-category setup). You can find these annotations and the annotations based on the other object priors evaluated in our paper's study [in our main git](). By default, the test is carried out on COCO's validation set. 
 
@@ -31,7 +31,7 @@ with ```*``` being an object prior name like *DINO*, as mentioned above. Set the
 
 ```
 
-If only inference is necessary, provide the path to the trained Mask R-CNN model ([see our maim git for pre-trained models]()):
+If only inference is necessary, provide the path to the trained Mask R-CNN model ([see our main git for pre-trained models]()):
 
 ```
 ./tools/train_net.py --config-file ./configs/COCO-OpenWorldInstanceSegmentation/mask_rcnn_R_50_FPN_1x.yaml --num-gpus 8 --eval-only MODEL.WEIGHTS ./weights/SOS_DINO_coco_voc.pth
