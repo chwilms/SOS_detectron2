@@ -124,7 +124,7 @@ def setup(args):
 
 
 def main(args):
-    register_coco_instances("coco_2017_train_voc", {}, os.path.join(os.environ['DETECTRON2_DATASETS'],"coco/annotations/instances_train2017_voc.json"), os.path.join(os.environ['DETECTRON2_DATASETS'],"coco/train2017"))
+#    register_coco_instances("coco_2017_train_voc", {}, os.path.join(os.environ['DETECTRON2_DATASETS'],"coco/annotations/instances_train2017_voc.json"), os.path.join(os.environ['DETECTRON2_DATASETS'],"coco/train2017"))
 
     for path in glob.glob(os.path.join(os.environ['DETECTRON2_DATASETS'],"coco/annotations/instances_train2017_voc_SOS_*.json")):                      
         datasetname = path.split('/')[-1].split('.')[0].replace('instances_train2017_voc_SOS_','')
