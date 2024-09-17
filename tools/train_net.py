@@ -18,12 +18,14 @@ You may want to write your own script with your datasets and other customization
 
 import logging
 import os
+import glob
 from collections import OrderedDict
 
 import detectron2.utils.comm as comm
 from detectron2.checkpoint import DetectionCheckpointer
 from detectron2.config import get_cfg
 from detectron2.data import MetadataCatalog
+from detectron2.data.datasets import register_coco_instances
 from detectron2.engine import DefaultTrainer, default_argument_parser, default_setup, hooks, launch
 from detectron2.evaluation import (
     CityscapesInstanceEvaluator,
@@ -122,6 +124,12 @@ def setup(args):
 
 
 def main(args):
+    register_coco_instances("coco_2017_train_voc", {}, os.path.join(os.environ['DETECTRON2_DATASETS'],"coco/annotations/instances_train2017_voc.json"), os.path.join(os.environ['DETECTRON2_DATASETS'],"coco/train2017"))
+
+    for path in glob.glob(os.path.join(os.environ['DETECTRON2_DATASETS'],"coco/annotations/instances_train2017_voc_SOS_*.json")):                      
+        datasetname = path.split('/')[-1].split('.')[0].replace('instances_train2017_voc_SOS_','')
+        register_coco_instances("coco_2017_train_voc_SOS_"+datasetname, {},  os.path.join(os.environ['DETECTRON2_DATASETS'],"coco/annotations/instances_train2017_voc_SOS_"+datasetname+".json"),  os.path.join(os.environ['DETECTRON2_DATASETS'],"coco/train2017"))
+
     cfg = setup(args)
 
     if args.eval_only:
@@ -150,7 +158,7 @@ def main(args):
     return trainer.train()
 
 
-def invoke_main() -> None:
+if __name__ == "__main__":
     args = default_argument_parser().parse_args()
     print("Command Line Args:", args)
     launch(
@@ -161,7 +169,3 @@ def invoke_main() -> None:
         dist_url=args.dist_url,
         args=(args,),
     )
-
-
-if __name__ == "__main__":
-    invoke_main()  # pragma: no cover
