@@ -34,7 +34,9 @@ with ```*``` being an object prior name like *DINO*, as mentioned above. Set the
 If only inference is necessary, provide the path to the trained Mask R-CNN model ([see our main git for pre-trained models]()):
 
 ```
-./tools/train_net.py --config-file ./configs/COCO-OpenWorldInstanceSegmentation/mask_rcnn_R_50_FPN_1x.yaml --num-gpus 8 --eval-only MODEL.WEIGHTS ./weights/SOS_DINO_coco_voc.pth
+./tools/train_net.py --config-file ./configs/COCO-OpenWorldInstanceSegmentation/mask_rcnn_R_50_FPN_1x.yaml --num-gpus 8 --eval-only MODEL.WEIGHTS /data/SOS/maskrcnn_weights/SOS_DINO_coco_voc.pth
+
+
 ```
 
 For evaluation on the cross-category setup (see paper), we use the code provided by [Saito et al.](https://ksaito-ut.github.io/openworld_ldet/).
